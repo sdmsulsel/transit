@@ -108,7 +108,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <label for="file_tr" class="form-label">UPLOAD TR MUTASI ANDA</label>
-                    <input type="file" class="form-control" id="file_tr" name="file_tr" required>
+                    <input type="file" class="form-control" onchange="validasiFile(this, "" , 512)"  id="file_tr" name="file_tr" required>
                 </div>
             </div>
             <div class="col-12">
@@ -373,7 +373,17 @@
     const btnLoading = document.querySelector('.btn-loading');
     const myAlert = document.querySelector('.my-alert');
 
-
+     //Validasi file
+    const validasiFile = (data, type = ['pdf'], size = 512) => {
+      const tipe = new RegExp(type.join('|'), "i")
+      if (!tipe.test(data.files[0].type)) {
+        alert("Mohon upload file pdf!");
+        data.value = "";
+      } else if (data.files[0].size > size * 1024) {
+        alert("Ukuran maksimal file 512kb!");
+        data.value = "";
+      }
+    }
   
         
     form.addEventListener('submit',async e => {
