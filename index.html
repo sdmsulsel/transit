@@ -107,8 +107,8 @@
 
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="file_tr" class="form-label">UPLOAD TR MUTASI ANDA/FOTO ATAU SCREENSHOT NAMA ANDA DI TR (MAKSIMAL 500KB)</label>
-                    <input type="file" class="form-control" id="file_tr" name="file_tr" onchange="validasiFile(this, [], 500)" required>
+                    <label for="file_tr" class="form-label">UPLOAD TR MUTASI ATAU PENGHADAPAN ANDA/FOTO ATAU SCREENSHOT NAMA ANDA DI TR (MAKSIMAL 500KB)</label>
+                    <input type="file" class="form-control" id="file_tr" name="file_tr" onchange="validasiFile(this, ['pdf','jpeg', 'jpg', 'png'], 500)" required>
                 </div>
             </div>
             <div class="col-12">
@@ -364,6 +364,8 @@
 
 
 </body>
+    <!-- script sweet alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // url script app google sheet
     const scriptURL = 'https://script.google.com/macros/s/AKfycby9JO9QVUHXhOmhyy2Lw93kW2Zm4c0PPyy0ejIx1N813MyCzrrBPAK5aV0GVFhevJ8L/exec';
@@ -373,17 +375,37 @@
     const btnLoading = document.querySelector('.btn-loading');
     const myAlert = document.querySelector('.my-alert');
   
-    //Validasi file
+       //Validasi file biasa tanpa sweet alert
+    //     const validasiFile = (data, type = ['pdf'], size = 500) => {
+    //     const tipe = new RegExp(type.join('|'), "i")
+    //     if (!tipe.test(data.files[0].type)) {
+    //         const allowed = type.join(", ")
+    //         alert("Mohon upload file " + allowed);
+    //         data.value = "";
+    //     } else if (data.files[0].size > size * 1024) {
+    //       alert("Ukuran maksimal file "+size+"kb!");
+    //         data.value = "";
+    //     }
+    // }
+
+    //Validasi file biasa dgn sweet alert
     const validasiFile = (data, type = ['pdf'], size = 500) => {
-      const tipe = new RegExp(type.join('|'), "i")
-      if (!tipe.test(data.files[0].type)) {
-        alert("Mohon upload file pdf!");
+    const tipe = new RegExp(type.join('|'), "i")
+    if (!tipe.test(data.files[0].type)) {
+        const allowed = type.join(", ")
+        Swal.fire({
+            icon: "info",
+            text: "Mohon hanya upload file dengan format " + allowed,
+        });
         data.value = "";
-      } else if (data.files[0].size > size * 1024) {
-        alert("Ukuran maksimal file 500kb!");
+    } else if (data.files[0].size > size * 1024) {
+        Swal.fire({
+            icon: "error",
+            text: "Ukuran maksimal file " + size + "kb",
+        });
         data.value = "";
-      }
     }
+}
   
   
     form.addEventListener('submit', async e => {
