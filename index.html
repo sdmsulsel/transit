@@ -431,22 +431,70 @@
 
 
 
-      fetch(scriptURL, {
-        method: 'POST', body: formData
-      })
-      .then(response => {
+      // untuk menambah data saja tdk bisa edit
+      // fetch(scriptURL, {
+      //   method: 'POST', body: formData
+      // })
+      // .then(response => {
           // tampilkan tombol kirim, hilangkan tombol loading
-          btnLoading.classList.toggle('d-none');
-          btnKirim.classList.toggle('d-none');
+          // btnLoading.classList.toggle('d-none');
+
+          // tampilkan tombol kirim berdampingan dgn log out
+          // btnKirim.classList.toggle('d-none');
+
           // tampilkan alert
-          myAlert.classList.toggle('d-none');
+          // myAlert.classList.toggle('d-none');
+          // logOut.classList.toggle('d-none');
           // reset form
-          form.reset();
-          console.log('Success!', response);
+          // form.reset();
+          // console.log('Success!', response);
+
+          // menghapus data sesiaon dari halaman pertama wajib diakhir
+    //       sessionStorage.clear()
   
-      })
-      .catch(error => console.error('Error!', error.message))
+    //   })
+    //   .catch(error => console.error('Error!', error.message))
+    // })
+  
+//data bisa edit apabila double input
+    fetch(scriptURL, {
+        method: 'POST',
+        body: formData
     })
+    .then(response => response.json())
+    .then(data => {
+        if (data.result == "success") {
+            // tampilkan tombol kirim, hilangkan tombol loading
+            btnLoading.classList.toggle('d-none');
+
+            // tampilkan tombol kirim berdampingan dgn log out
+            // btnKirim.classList.toggle('d-none');
+
+            // tampilkan alert
+            myAlert.classList.toggle('d-none');
+            logOut.classList.toggle('d-none');
+            // reset form
+            form.reset();
+          
+
+            // menghapus data sesiaon dari halaman pertama wajib diakhir
+            sessionStorage.clear()
+
+            // atur alert sesuai dgn app script apakah diisinkan update atau tidak memasukkan data
+            if (data.updated) {
+              Swal.fire({
+              title: "DATA UPDATE",
+              text: "ANDA PERNAH INPUT DATA DENGAN NIK YANG SAMA",
+              icon: "question"
+            });
+        }
+        } else {
+            alert("gagal mengirim data")
+        }
+    })
+    .catch(error => console.error('Error!', error.message))
+    })
+
   
     //untuk type file
     const convertBase64 = (file) => {
