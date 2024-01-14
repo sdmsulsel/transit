@@ -133,7 +133,7 @@
             
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="pilihan1" class="form-label">PILIHAN 1</label>
+                    <label for="pilihan1" class="form-label">PILIHAN 1 (TIDAK BOLEH SAMA DENGAN PILIHAN 2 DAN 3)</label>
                     <select name="pilihan1" id="pilihan1" class="form-select"  required>
                         <option selected>Pilih Salah Satu</option>
                         <option value="POLRES WAJO">POLRES WAJO</option>
@@ -197,7 +197,7 @@
 
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="pilihan2" class="form-label">PILIHAN 2</label>
+                    <label for="pilihan2" class="form-label">PILIHAN 2 (TIDAK BOLEH SAMA DENGAN PILIHAN 1 DAN 3)</label>
                     <select name="pilihan2" id="pilihan2" class="form-select"  required>
                         <option selected>Pilih Salah Satu</option>
                         <option value="POLRES WAJO">POLRES WAJO</option>
@@ -260,7 +260,7 @@
             </div>
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="pilihan3" class="form-label">PILIHAN 3</label>
+                    <label for="pilihan3" class="form-label">PILIHAN 3 (TIDAK BOLEH SAMA DENGAN PILIHAN 1 DAN 2)</label>
                     <select name="pilihan3" id="pilihan3" class="form-select"  required>
                         <option selected>Pilih Salah Satu</option>
                         <option value="POLRES WAJO">POLRES WAJO</option>
@@ -331,8 +331,8 @@
 <!-- kirim -->
             <div class="col-12" style="margin-top: 30px;">
                <button type="submit" class="btn btn-primary btn-kirim">KIRIM</button>
-<a href="index.html" class="btn btn-danger btn-logout d-none " >LOG OUT</a>
 
+<a href="index.html" class="btn btn-danger btn-logout d-none " >LOG OUT</a>
                <button class="btn btn-primary btn-loading d-none" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                 <span role="status">Loading...</span>
@@ -374,8 +374,7 @@
     const btnKirim = document.querySelector('.btn-kirim');
     const btnLoading = document.querySelector('.btn-loading');
     const myAlert = document.querySelector('.my-alert');
-       const logOut = document.querySelector('.btn-logout');
-  
+   const logOut = document.querySelector('.btn-logout');
        //Validasi file biasa tanpa sweet alert
     //     const validasiFile = (data, type = ['pdf'], size = 500) => {
     //     const tipe = new RegExp(type.join('|'), "i")
