@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ISI DATA ANGKET</title>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Work+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Work Sans', sans-serif;
+            padding: 20px 0;
+        }
+    
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+    
+        /* Form Container */
+        .col-md-6 {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 800px;
+        }
+    
+        /* Title Styling */
+        .fw-bold {
+            color: #2c3e50;
+            font-size: 24px;
+            text-align: center;
+            margin: 20px 0;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+    
+        /* Form Elements */
+        .form-label {
+            color: #34495e;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+    
+        .form-control, .form-select {
+            border: 1px solid #dde1e3;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+    
+        .form-control:focus, .form-select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+    
+        /* File Input Styling */
+        input[type="file"] {
+            padding: 10px;
+            background-color: #f8f9fa;
+        }
+    
+        /* Canvas/Signature Area */
+        .border {
+            border: 2px dashed #dde1e3 !important;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+    
+        canvas {
+            width: 100%;
+            touch-action: none;
+        }
+    
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+    
+        .btn-primary {
+            background-color: #3498db;
+            border: none;
+        }
+    
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-1px);
+        }
+    
+        .btn-danger {
+            background-color: #e74c3c;
+            border: none;
+        }
+    
+        .btn-danger:hover {
+            background-color: #c0392b;
+            transform: translateY(-1px);
+        }
+    
+        /* Alert Styling */
+        .alert {
+            border-radius: 6px;
+            font-weight: 500;
+        }
+    
+        /* Footer */
+        .block {
+            text-align: center;
+            color: #7f8c8d;
+            margin-top: 30px;
+            display: block;
+        }
+    
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .col-md-6 {
+                padding: 20px;
+            }
+    
+            .fw-bold {
+                font-size: 20px;
+            }
+    
+            .form-label {
+                font-size: 14px;
+            }
+    
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+    
+            canvas {
+                height: 150px;
+            }
+        }
+    
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 10px;
+            }
+    
+            .col-md-6 {
+                padding: 15px;
+            }
+    
+            .fw-bold {
+                font-size: 18px;
+            }
+    
+            .form-control, .form-select {
+                font-size: 13px;
+            }
+    
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    
+        /* Loading Animation */
+        .spinner-border {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 8px;
+        }
+    
+        /* Required Field Indicator */
+        .form-label::after {
+            content: " *";
+            color: #e74c3c;
+        }
+    
+        /* Custom Select Arrow */
+        .form-select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+        }
+    
+        /* Hover Effects */
+        .form-control:hover, .form-select:hover {
+            border-color: #3498db;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-md-6">
+            <br>
+            <div class="fw-bold">PENGISIAN ANGKET POLDA SULSEL</div>
+            <br>
+
+            <form name="my-form" id="myForm">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="nama" class="form-label">Nama Lengkap (TIDAK DISINGKAT SESUAI KEP PERTAMA)</label>
+                        <input type="text" class="form-control" id="nama" name="nama" required>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="pangkat" class="form-label">PANGKAT</label>
+                        <select name="pangkat" id="pangkat" class="form-select" required>
+                            <option selected>Pilih Salah Satu</option>
+                            <!-- <option value="kombespol">Kombes Pol</option> -->
+                            <option value="akbp">Akbp</option>
+                            <option value="kompol">Kompol</option>
+                            <option value="akp">Akp</option>
+                            <option value="iptu">Iptu</option>
+                            <option value="ipda">Ipda</option>
+                            <option value="aiptu">Aiptu</option>
+                            <option value="aipda">Aipda</option>
+                            <option value="bripka">Bripka</option>
+                            <option value="brigpol">Brigpol</option>
+                            <option value="briptu">Briptu</option>
+                            <option value="bripda">Bripda</option>
+                            <option value="abrip">Abrip</option>
+                            <option value="abriptu">Abriptu</option>
+                            <option value="abripda">Abripda</option>
+                            <option value="bharaka">Bharaka</option>
+                            <option value="bharatu">Bharatu</option>
+                            <option value="bharada">Bharada</option>
+                            <option value="pembutama">Pembutama</option>
+                            <option value="pembmadya">Pembmadya</option>
+                            <option value="pembmuda">Pembmuda</option>
+                            <option value="pembina I">Pembina I</option>
+                            <option value="pembina">Pembina</option>
+                            <option value="penata I">Penata I</option>
+                            <option value="penata">Penata</option>
+                            <option value="penda I">Penda I</option>
+                            <option value="penda">Penda</option>
+                            <option value="pengatur I">Pengatur I</option>
+                            <option value="pengatur">Pengatur</option>
+                            <option value="pengda I">Pengda I</option>
+                            <option value="pengda">Pengda</option>
+                            <option value="juru I">Juru I</option>
+                            <option value="juru">Juru</option>
+                            <option value="jurmud I">Jurmud I</option>
+                            <option value="jurmud">Jurmud</option>
+                            <option value="capeg">Capeg</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="nrp" class="form-label">NRP</label>
+                        <input type="number" class="form-control" id="nrp" name="nrp" required>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="asal-polda" class="form-label">Asal Polda</label>
+                        <input type="text" class="form-control" id="asal-polda" name="asal-polda" required>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="hp" class="form-label">Nomor Telepon</label>
+                        <input type="number" class="form-control" id="hp" name="hp" required>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="notr" class="form-label">Nomor Telegram Mutasi</label>
+                        <input type="text" class="form-control" id="notr" name="notr" required>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="file_tr" class="form-label">UPLOAD TR MUTASI ATAU PENGHADAPAN ANDA/FOTO ATAU
+                            SCREENSHOT NAMA ANDA DI TR (MAKSIMAL 500KB)</label>
+                        <input type="file" class="form-control" id="file_tr" name="file_tr" required>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="ket" class="form-label">KETERANGAN PINDAH</label>
+                        <select name="ket" id="ket" class="form-select" required>
+                            <option selected>Pilih Salah Satu</option>
+                            <option value="Diarahkan pada satker tertentu">Diarahkan Pada Satker Tertentu</option>
+                            <option value="berobat">Berobat</option>
+                            <option value="diarahkan">Diarahkan Pada Sat Brimob</option>
+                            <option value="ikut suami/istri">Ikut Suami/Istri</option>
+                            <option value="tidak ada">Tidak Ada</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="alamat-rumah" class="form-label">Alamat Lengkap Rumah</label>
+                        <input type="text" class="form-control" id="alamat-rumah" name="alamat-rumah" required>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="pilihan1" class="form-label">PILIHAN 1 (TIDAK BOLEH SAMA DENGAN PILIHAN 2 DAN
+                            3)</label>
+                        <select name="pilihan1" id="pilihan1" class="form-select" required>
+                            <option selected>Pilih Salah Satu</option>
+                            <option value="POLRES WAJO">POLRES WAJO</option>
+                            <option value="POLRES TANA TORAJA">POLRES TANA TORAJA</option>
+                            <option value="POLRES TAKALAR">POLRES TAKALAR</option>
+                            <option value="POLRESTABES MAKASSAR">POLRESTABES MAKASSAR</option>
+                            <option value="POLRES SOPPENG">POLRES SOPPENG</option>
+                            <option value="POLRES SINJAI">POLRES SINJAI</option>
+                            <option value="POLRES SIDRAP">POLRES SIDRAP</option>
+                            <option value="POLRES PINRANG">POLRES PINRANG</option>
+                            <option value="POLRES PELABUHAN MAKASSAR">POLRES PELABUHAN MAKASSAR</option>
+                            <option value="POLRES PAREPARE">POLRES PAREPARE</option>
+                            <option value="POLRES PANGKEP">POLRES PANGKEP</option>
+                            <option value="POLRES PALOPO">POLRES PALOPO</option>
+                            <option value="POLRES MAROS">POLRES MAROS</option>
+                            <option value="POLRES LUWU UTARA">POLRES LUWU UTARA</option>
+                            <option value="POLRES LUWU TIMUR">POLRES LUWU TIMUR</option>
+                            <option value="POLRES LUWU">POLRES LUWU</option>
+                            <option value="POLRES KEP SELAYAR">POLRES KEP SELAYAR</option>
+                            <option value="POLRES JENEPONTO">POLRES JENEPONTO</option>
+                            <option value="POLRES GOWA">POLRES GOWA</option>
+                            <option value="POLRES ENREKANG">POLRES ENREKANG</option>
+                            <option value="POLRES BULUKUMBA">POLRES BULUKUMBA</option>
+                            <option value="POLRES BONE">POLRES BONE</option>
+                            <option value="POLRES BARRU">POLRES BARRU</option>
+                            <option value="POLRES BANTAENG">POLRES BANTAENG</option>
+                            <option value="POLRES TORAJA UTARA">POLRES TORAJA UTARA</option>
+                            <option value="DIT RESKRIMUM POLDA SULSEL">DIT RESKRIMUM POLDA SULSEL</option>
+                            <option value="BID DOKKES POLDA SULSEL">BID DOKKES POLDA SULSEL</option>
+                            <option value="BID HUMAS POLDA SULSEL">BID HUMAS POLDA SULSEL</option>
+                            <option value="BID KEU POLDA SULSEL">BID KEU POLDA SULSEL</option>
+                            <option value="BID PROPAM POLDA SULSEL">BID PROPAM POLDA SULSEL</option>
+                            <option value="BID TIK POLDA SULSEL">BID TIK POLDA SULSEL</option>
+                            <option value="DIT BINMAS POLDA SULSEL">DIT BINMAS POLDA SULSEL</option>
+                            <option value="DIT INTELKAM POLDA SULSEL">DIT INTELKAM POLDA SULSEL</option>
+                            <option value="DIT LANTAS POLDA SULSEL">DIT LANTAS POLDA SULSEL</option>
+                            <option value="DIT PAMOBVIT POLDA SULSEL">DIT PAMOBVIT POLDA SULSEL</option>
+                            <option value="DIT POLAIRUD POLDA SULSEL">DIT POLAIRUD POLDA SULSEL</option>
+                            <option value="DIT RESKRIMSUS POLDA SULSEL">DIT RESKRIMSUS POLDA SULSEL</option>
+                            <option value="YANMA POLDA SULSEL">YANMA POLDA SULSEL</option>
+                            <option value="DIT RESNARKOBA POLDA SULSEL">DIT RESNARKOBA POLDA SULSEL</option>
+                            <option value="DIT SAMAPTA POLDA SULSEL">DIT SAMAPTA POLDA SULSEL</option>
+                            <option value="DIT TAHTI POLDA SULSEL">DIT TAHTI POLDA SULSEL</option>
+                            <option value="ITWASDA POLDA SULSEL">ITWASDA POLDA SULSEL</option>
+                            <option value="BIRO LOGISTIK POLDA SULSEL">BIRO LOGISTIK POLDA SULSEL</option>
+                            <option value="BIRO OPS POLDA SULSEL">BIRO OPS POLDA SULSEL</option>
+                            <option value="BIRO RENA POLDA SULSEL">BIRO RENA POLDA SULSEL</option>
+                            <option value="BIRO SDM POLDA SULSEL">BIRO SDM POLDA SULSEL</option>
+                            <option value="SAT BRIMOB POLDA SULSEL">SAT BRIMOB POLDA SULSEL</option>
+                            <option value="SETUM POLDA SULSEL">SETUM POLDA SULSEL</option>
+                            <option value="SPN POLDA SULSEL">SPN POLDA SULSEL</option>
+                            <option value="SPKT POLDA SULSEL">SPKT POLDA SULSEL</option>
+                            <option value="SPRIPIM POLDA SULSEL">SPRIPIM POLDA SULSEL</option>
+                            <option value="INSTANSI LUAR">INSTANSI LUAR</option>
+                            <option value="RUMKIT BHAYANGKARA TK. II MAKASSAR">RUMKIT BHAYANGKARA TK. II MAKASSAR</option>
+                            <option value="BID KUM POLDA SULSEL">BID KUM POLDA SULSEL</option>
+                            <option value="BID LABFOR POLDA SULSEL">BID LABFOR POLDA SULSEL</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="pilihan2" class="form-label">PILIHAN 2 (TIDAK BOLEH SAMA DENGAN PILIHAN 1 DAN
+                            3)</label>
+                        <select name="pilihan2" id="pilihan2" class="form-select" required>
+                          
+                            <option selected>Pilih Salah Satu</option>
+                        <option value="POLRES WAJO">POLRES WAJO</option>
+                        <option value="POLRES TANA TORAJA">POLRES TANA TORAJA</option>
+                        <option value="POLRES TAKALAR">POLRES TAKALAR</option>
+                        <option value="POLRESTABES MAKASSAR">POLRESTABES MAKASSAR</option>
+                        <option value="POLRES SOPPENG">POLRES SOPPENG</option>
+                        <option value="POLRES SINJAI">POLRES SINJAI</option>
+                        <option value="POLRES SIDRAP">POLRES SIDRAP</option>
+                        <option value="POLRES PINRANG">POLRES PINRANG</option>
+                        <option value="POLRES PELABUHAN MAKASSAR">POLRES PELABUHAN MAKASSAR</option>
+                        <option value="POLRES PAREPARE">POLRES PAREPARE</option>
+                        <option value="POLRES PANGKEP">POLRES PANGKEP</option>
+                        <option value="POLRES PALOPO">POLRES PALOPO</option>
+                        <option value="POLRES MAROS">POLRES MAROS</option>
+                        <option value="POLRES LUWU UTARA">POLRES LUWU UTARA</option>
+                        <option value="POLRES LUWU TIMUR">POLRES LUWU TIMUR</option>
+                        <option value="POLRES LUWU">POLRES LUWU</option>
+                        <option value="POLRES KEP SELAYAR">POLRES KEP SELAYAR</option>
+                        <option value="POLRES JENEPONTO">POLRES JENEPONTO</option>
+                        <option value="POLRES GOWA">POLRES GOWA</option>
+                        <option value="POLRES ENREKANG">POLRES ENREKANG</option>
+                        <option value="POLRES BULUKUMBA">POLRES BULUKUMBA</option>
+                        <option value="POLRES BONE">POLRES BONE</option>
+                        <option value="POLRES BARRU">POLRES BARRU</option>
+                        <option value="POLRES BANTAENG">POLRES BANTAENG</option>
+                        <option value="POLRES TORAJA UTARA">POLRES TORAJA UTARA</option>
+                        <option value="DIT RESKRIMUM POLDA SULSEL">DIT RESKRIMUM POLDA SULSEL</option>
+                        <option value="BID DOKKES POLDA SULSEL">BID DOKKES POLDA SULSEL</option>
+                        <option value="BID HUMAS POLDA SULSEL">BID HUMAS POLDA SULSEL</option>
+                        <option value="BID KEU POLDA SULSEL">BID KEU POLDA SULSEL</option>
+                        <option value="BID PROPAM POLDA SULSEL">BID PROPAM POLDA SULSEL</option>
+                        <option value="BID TIK POLDA SULSEL">BID TIK POLDA SULSEL</option>
+                        <option value="DIT BINMAS POLDA SULSEL">DIT BINMAS POLDA SULSEL</option>
+                        <option value="DIT INTELKAM POLDA SULSEL">DIT INTELKAM POLDA SULSEL</option>
+                        <option value="DIT LANTAS POLDA SULSEL">DIT LANTAS POLDA SULSEL</option>
+                        <option value="DIT PAMOBVIT POLDA SULSEL">DIT PAMOBVIT POLDA SULSEL</option>
+                        <option value="DIT POLAIRUD POLDA SULSEL">DIT POLAIRUD POLDA SULSEL</option>
+                        <option value="DIT RESKRIMSUS POLDA SULSEL">DIT RESKRIMSUS POLDA SULSEL</option>
+                        <option value="YANMA POLDA SULSEL">YANMA POLDA SULSEL</option>
+                        <option value="DIT RESNARKOBA POLDA SULSEL">DIT RESNARKOBA POLDA SULSEL</option>
+                        <option value="DIT SAMAPTA POLDA SULSEL">DIT SAMAPTA POLDA SULSEL</option>
+                        <option value="DIT TAHTI POLDA SULSEL">DIT TAHTI POLDA SULSEL</option>
+                        <option value="ITWASDA POLDA SULSEL">ITWASDA POLDA SULSEL</option>
+                        <option value="BIRO LOGISTIK POLDA SULSEL">BIRO LOGISTIK POLDA SULSEL</option>
+                        <option value="BIRO OPS POLDA SULSEL">BIRO OPS POLDA SULSEL</option>
+                        <option value="BIRO RENA POLDA SULSEL">BIRO RENA POLDA SULSEL</option>
+                        <option value="BIRO SDM POLDA SULSEL">BIRO SDM POLDA SULSEL</option>
+                        <option value="SAT BRIMOB POLDA SULSEL">SAT BRIMOB POLDA SULSEL</option>
+                        <option value="SETUM POLDA SULSEL">SETUM POLDA SULSEL</option>
+                        <option value="SPN POLDA SULSEL">SPN POLDA SULSEL</option>
+                        <option value="SPKT POLDA SULSEL">SPKT POLDA SULSEL</option>
+                        <option value="SPRIPIM POLDA SULSEL">SPRIPIM POLDA SULSEL</option>
+                        <option value="INSTANSI LUAR">INSTANSI LUAR</option>
+                        <option value="RUMKIT BHAYANGKARA TK. II MAKASSAR">RUMKIT BHAYANGKARA TK. II MAKASSAR</option>
+                        <option value="BID KUM POLDA SULSEL">BID KUM POLDA SULSEL</option>
+                        <option value="BID LABFOR POLDA SULSEL">BID LABFOR POLDA SULSEL</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="pilihan3" class="form-label">PILIHAN 3 (TIDAK BOLEH SAMA DENGAN PILIHAN 1 DAN
+                            2)</label>
+                        <select name="pilihan3" id="pilihan3" class="form-select" required>
+                            <option selected>Pilih Salah Satu</option>
+                        <option value="POLRES WAJO">POLRES WAJO</option>
+                        <option value="POLRES TANA TORAJA">POLRES TANA TORAJA</option>
+                        <option value="POLRES TAKALAR">POLRES TAKALAR</option>
+                        <option value="POLRESTABES MAKASSAR">POLRESTABES MAKASSAR</option>
+                        <option value="POLRES SOPPENG">POLRES SOPPENG</option>
+                        <option value="POLRES SINJAI">POLRES SINJAI</option>
+                        <option value="POLRES SIDRAP">POLRES SIDRAP</option>
+                        <option value="POLRES PINRANG">POLRES PINRANG</option>
+                        <option value="POLRES PELABUHAN MAKASSAR">POLRES PELABUHAN MAKASSAR</option>
+                        <option value="POLRES PAREPARE">POLRES PAREPARE</option>
+                        <option value="POLRES PANGKEP">POLRES PANGKEP</option>
+                        <option value="POLRES PALOPO">POLRES PALOPO</option>
+                        <option value="POLRES MAROS">POLRES MAROS</option>
+                        <option value="POLRES LUWU UTARA">POLRES LUWU UTARA</option>
+                        <option value="POLRES LUWU TIMUR">POLRES LUWU TIMUR</option>
+                        <option value="POLRES LUWU">POLRES LUWU</option>
+                        <option value="POLRES KEP SELAYAR">POLRES KEP SELAYAR</option>
+                        <option value="POLRES JENEPONTO">POLRES JENEPONTO</option>
+                        <option value="POLRES GOWA">POLRES GOWA</option>
+                        <option value="POLRES ENREKANG">POLRES ENREKANG</option>
+                        <option value="POLRES BULUKUMBA">POLRES BULUKUMBA</option>
+                        <option value="POLRES BONE">POLRES BONE</option>
+                        <option value="POLRES BARRU">POLRES BARRU</option>
+                        <option value="POLRES BANTAENG">POLRES BANTAENG</option>
+                        <option value="POLRES TORAJA UTARA">POLRES TORAJA UTARA</option>
+                        <option value="DIT RESKRIMUM POLDA SULSEL">DIT RESKRIMUM POLDA SULSEL</option>
+                        <option value="BID DOKKES POLDA SULSEL">BID DOKKES POLDA SULSEL</option>
+                        <option value="BID HUMAS POLDA SULSEL">BID HUMAS POLDA SULSEL</option>
+                        <option value="BID KEU POLDA SULSEL">BID KEU POLDA SULSEL</option>
+                        <option value="BID PROPAM POLDA SULSEL">BID PROPAM POLDA SULSEL</option>
+                        <option value="BID TIK POLDA SULSEL">BID TIK POLDA SULSEL</option>
+                        <option value="DIT BINMAS POLDA SULSEL">DIT BINMAS POLDA SULSEL</option>
+                        <option value="DIT INTELKAM POLDA SULSEL">DIT INTELKAM POLDA SULSEL</option>
+                        <option value="DIT LANTAS POLDA SULSEL">DIT LANTAS POLDA SULSEL</option>
+                        <option value="DIT PAMOBVIT POLDA SULSEL">DIT PAMOBVIT POLDA SULSEL</option>
+                        <option value="DIT POLAIRUD POLDA SULSEL">DIT POLAIRUD POLDA SULSEL</option>
+                        <option value="DIT RESKRIMSUS POLDA SULSEL">DIT RESKRIMSUS POLDA SULSEL</option>
+                        <option value="YANMA POLDA SULSEL">YANMA POLDA SULSEL</option>
+                        <option value="DIT RESNARKOBA POLDA SULSEL">DIT RESNARKOBA POLDA SULSEL</option>
+                        <option value="DIT SAMAPTA POLDA SULSEL">DIT SAMAPTA POLDA SULSEL</option>
+                        <option value="DIT TAHTI POLDA SULSEL">DIT TAHTI POLDA SULSEL</option>
+                        <option value="ITWASDA POLDA SULSEL">ITWASDA POLDA SULSEL</option>
+                        <option value="BIRO LOGISTIK POLDA SULSEL">BIRO LOGISTIK POLDA SULSEL</option>
+                        <option value="BIRO OPS POLDA SULSEL">BIRO OPS POLDA SULSEL</option>
+                        <option value="BIRO RENA POLDA SULSEL">BIRO RENA POLDA SULSEL</option>
+                        <option value="BIRO SDM POLDA SULSEL">BIRO SDM POLDA SULSEL</option>
+                        <option value="SAT BRIMOB POLDA SULSEL">SAT BRIMOB POLDA SULSEL</option>
+                        <option value="SETUM POLDA SULSEL">SETUM POLDA SULSEL</option>
+                        <option value="SPN POLDA SULSEL">SPN POLDA SULSEL</option>
+                        <option value="SPKT POLDA SULSEL">SPKT POLDA SULSEL</option>
+                        <option value="SPRIPIM POLDA SULSEL">SPRIPIM POLDA SULSEL</option>
+                        <option value="INSTANSI LUAR">INSTANSI LUAR</option>
+                        <option value="RUMKIT BHAYANGKARA TK. II MAKASSAR">RUMKIT BHAYANGKARA TK. II MAKASSAR</option>
+                        <option value="BID KUM POLDA SULSEL">BID KUM POLDA SULSEL</option>
+                        <option value="BID LABFOR POLDA SULSEL">BID LABFOR POLDA SULSEL</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-12" id="canvas-width-anchor">
+                    <div class="mb-3">
+                        <div>
+                            <label class="form-label">TANDA TANGAN (ISI FULL PADA KOTAK)</label>
+                        </div>
+                        <div class="border mb-3">
+                            <canvas></canvas>
+                        </div>
+                        <button type="button" id="hapus-ttd" class="btn btn-danger">Hapus Tanda Tangan</button>
+                    </div>
+                </div>
+
+                <!-- alert -->
+                <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+                    <strong>Terima Kasih!</strong> Jawaban anda telah kami terima.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <!-- kirim -->
+                <div class="col-12" style="margin-top: 30px;">
+                    <button type="submit" class="btn btn-primary btn-kirim">KIRIM</button>
+                    <a href="index.html" class="btn btn-danger btn-logout d-none">LOG OUT</a>
+                    <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        <span role="status">Loading...</span>
+                    </button>
+                </div>
+            </form>
+
+            <small class="block">BAGBINKAR  <a href="https://instagram.com/romisunggara?igshid=OGQ5ZDc2ODk2ZA==">@birosdmpoldasulsel</a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.3/dist/index.bundle.min.js"></script>
+
+    <script>
+        // URL Web App Google Apps Script
+        const scriptURL = 'https://script.google.com/macros/s/AKfycby9JO9QVUHXhOmhyy2Lw93kW2Zm4c0PPyy0ejIx1N813MyCzrrBPAK5aV0GVFhevJ8L/exec';
+        const form = document.forms['my-form'];
+        const btnKirim = document.querySelector('.btn-kirim');
+        const btnLoading = document.querySelector('.btn-loading');
+        const myAlert = document.querySelector('.my-alert');
+        const logOut = document.querySelector('.btn-logout');
+
+        // Setup Canvas untuk tanda tangan
+        const canvas = document.querySelector("canvas");
+        const signaturePad = new SignaturePad(canvas);
+        const canvasWidth = document.getElementById("canvas-width-anchor").offsetWidth;
+        canvas.width = canvasWidth;
+        canvas.height = canvasWidth / 2;
+
+        // Reset tanda tangan
+        document.getElementById('hapus-ttd').onclick = function() {
+            signaturePad.clear();
+        };
+
+        // Validasi file
+        function validasiFile(data, type = ['pdf', 'jpeg', 'jpg', 'png'], size = 500) {
+            const file = data.files[0];
+            if (!file) return;
+
+            const fileType = file.type.split('/').pop().toLowerCase();
+            if (!type.includes(fileType)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Format File Tidak Sesuai',
+                    text: 'Mohon upload file dengan format: ' + type.join(', ')
+                });
+                data.value = '';
+                return false;
+            }
+
+            if (file.size > size * 1024) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ukuran File Terlalu Besar',
+                    text: `Ukuran maksimal file adalah ${size}KB`
+                });
+                data.value = '';
+                return false;
+            }
+
+            return true;
+        }
+
+        // Event listener untuk file input
+        document.getElementById('file_tr').addEventListener('change', function() {
+            validasiFile(this, ['pdf', 'jpeg', 'jpg', 'png'], 500);
+        });
+
+        // Validasi pilihan 1, 2, dan 3
+        function validasiPilihan() {
+            const pilihan1 = document.getElementById('pilihan1').value;
+            const pilihan2 = document.getElementById('pilihan2').value;
+            const pilihan3 = document.getElementById('pilihan3').value;
+
+            // Cek jika semua pilihan sudah diisi
+            if (pilihan1 && pilihan2 && pilihan3) {
+                if (pilihan1 === pilihan2 || pilihan1 === pilihan3 || pilihan2 === pilihan3) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Pilihan Tidak Valid',
+                        text: 'Pilihan 1, 2, dan 3 tidak boleh sama!'
+                    });
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // Event listeners untuk validasi pilihan
+        ['pilihan1', 'pilihan2', 'pilihan3'].forEach(id => {
+            document.getElementById(id).addEventListener('change', validasiPilihan);
+        });
+
+        // Validasi tanda tangan
+        function validasiTandaTangan() {
+            if (signaturePad.isEmpty()) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Tanda Tangan Kosong',
+                    text: 'Mohon isi tanda tangan terlebih dahulu!'
+                });
+                return false;
+            }
+            return true;
+        }
+
+        // Konversi file ke Base64
+        const convertBase64 = (file) => {
+            return new Promise((resolve, reject) => {
+                const fr = new FileReader();
+                fr.readAsDataURL(file);
+                fr.onload = () => resolve(fr.result);
+                fr.onerror = reject;
+            });
+        };
+
+        // Handle form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Validasi semua input
+            if (!validasiPilihan() || !validasiTandaTangan()) {
+                return;
+            }
+
+            try {
+                // Toggle loading state
+                btnLoading.classList.remove('d-none');
+                btnKirim.classList.add('d-none');
+
+                // Prepare form data
+                const formData = new FormData(form);
+
+                // Handle file uploads
+                const fileInput = document.getElementById('file_tr');
+                if (fileInput.files[0]) {
+                    const base64File = await convertBase64(fileInput.files[0]);
+                    formData.append('file_tr', base64File);
+                }
+
+                // Add signature
+                signaturePad.backgroundColor = "rgb(255,255,255)";
+                const signData = signaturePad.toData();
+                signaturePad.clear();
+                signaturePad.fromData(signData);
+                const fileTTD = signaturePad.toDataURL("image/jpeg");
+                formData.append("file_ttd", fileTTD);
+
+                // Submit form
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.ok) {
+                    // Success
+                    btnLoading.classList.add('d-none');
+                    myAlert.classList.remove('d-none');
+                    logOut.classList.remove('d-none');
+                    form.reset();
+                    signaturePad.clear();
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: 'Data telah berhasil dikirim'
+                    });
+                } else {
+                    // Error dari server
+                    btnKirim.classList.remove('d-none');
+                    btnLoading.classList.add('d-none');
+                    
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Data Tidak Tersimpan',
+                        text: data.message || 'Terjadi kesalahan saat menyimpan data'
+                    });
+                }
+            } catch (error) {
+                // Error teknis
+                console.error('Error:', error);
+                btnKirim.classList.remove('d-none');
+                btnLoading.classList.add('d-none');
+                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal Mengirim Data',
+                    text: 'Silakan coba kirim kembali'
+                });
+            }
+        });
+
+        // Prevent form submission when pressing Enter
+        form.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Validasi nomor telepon hanya angka
+        document.getElementById('hp').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Validasi NRP hanya angka
+        document.getElementById('nrp').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    </script>
+</body>
+</html>
